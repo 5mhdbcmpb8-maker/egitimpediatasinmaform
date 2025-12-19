@@ -22,12 +22,12 @@
 <body class="bg-orange-50/20 text-slate-900">
 
     <script>
-        // 1. Güncel Google Sheets URL
-        const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbxVqOv8lzsXP3PNGMcyGnYds5xaRYBftUdiDgAJcs-X6kCAUg_Vw7euozrBVhT70T9OrA/exec";
+        // 1. Yeni Google Sheets URL
+        const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbyXq83VkoTq63VbJkIkjmkLWUmtuwbCtt0UqLYxhzCecqKPjksfpr7wDnL6HaAO0lv7iQ/exec";
 
-        // 2. Kendi Firebase Config bilgilerinizi buraya girin
+        // 2. Kendi Firebase Config bilgilerinizi buraya girin (Admin Paneli için gereklidir)
         const MY_FIREBASE_CONFIG = {
-            apiKey: "BURAYA_API_KEY",
+            apiKey: "API_KEY_BURAYA",
             authDomain: "PROJE.firebaseapp.com",
             projectId: "PROJE_ID",
             storageBucket: "PROJE.appspot.com",
@@ -39,6 +39,7 @@
     <nav class="bg-white border-b border-orange-100 sticky top-0 z-50 shadow-sm">
         <div class="max-w-5xl mx-auto px-4 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-4">
+                <!-- Logo ve Rehberlik Yazısı -->
                 <img src="logo.png" alt="Eğitimpedia" class="h-10 w-auto" onerror="this.src='https://via.placeholder.com/40x40?text=E'">
                 <div class="h-6 w-px bg-slate-200"></div>
                 <span class="text-xl font-bold text-slate-800">Rehberlik</span>
@@ -50,11 +51,11 @@
     <main class="max-w-3xl mx-auto px-4 py-10">
         
         <!-- KULLANICI GÖRÜNÜMÜ -->
-        <div id="user-view" class="user-view bg-white rounded-[2rem] shadow-2xl shadow-orange-900/5 border border-orange-100 overflow-hidden">
+        <div id="user-view" class="user-view bg-white rounded-[2rem] shadow-2xl border border-orange-100 overflow-hidden">
             <div id="form-container">
                 <div class="p-8 md:p-12 border-b border-orange-50 bg-orange-50/30">
                     <h1 class="text-3xl font-extrabold text-slate-900 leading-tight">Veli Ön Görüşme Formu</h1>
-                    <p class="mt-4 text-slate-600 leading-relaxed italic">Bu form, ön görüşmeyi (20–25 dk) daha verimli hale getirmek ve size en uygun yol haritasını hazırlayabilmek için hazırlanmıştır. Kısa, net ve mümkünse somut örneklerle yanıtlamanız yeterli.</p>
+                    <p class="mt-4 text-slate-600 leading-relaxed italic">Bu form, ön görüşmeyi daha verimli hale getirmek ve size en uygun yol haritasını hazırlayabilmek için hazırlanmıştır. Kısa, net ve mümkünse somut örneklerle yanıtlamanız yeterli.</p>
                 </div>
 
                 <form id="main-interview-form" class="p-8 md:p-12 space-y-12">
@@ -68,15 +69,15 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-1">
                                 <label class="text-sm font-bold text-slate-700">Öğrencinin Adı Soyadı:</label>
-                                <input type="text" name="ogrenci_ad" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white transition">
+                                <input type="text" name="ogrenci_ad" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50">
                             </div>
                             <div class="space-y-1">
                                 <label class="text-sm font-bold text-slate-700">Yaşı / Sınıfı:</label>
-                                <input type="text" name="ogrenci_yas_sinif" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white transition">
+                                <input type="text" name="ogrenci_yas_sinif" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50">
                             </div>
                             <div class="md:col-span-2 space-y-1">
                                 <label class="text-sm font-bold text-slate-700">Mevcut Okulu:</label>
-                                <input type="text" name="mevcut_okul" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white transition">
+                                <input type="text" name="mevcut_okul" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50">
                             </div>
                         </div>
                     </section>
@@ -90,19 +91,19 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-1">
                                 <label class="text-sm font-bold text-slate-700">Veli Adı Soyadı:</label>
-                                <input type="text" name="veli_ad" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white transition">
+                                <input type="text" name="veli_ad" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50">
                             </div>
                             <div class="space-y-1">
                                 <label class="text-sm font-bold text-slate-700">Adres (il/ilçe yeterli):</label>
-                                <input type="text" name="adres" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white transition">
+                                <input type="text" name="adres" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50">
                             </div>
                             <div class="space-y-1">
                                 <label class="text-sm font-bold text-slate-700">Telefon Numarası:</label>
-                                <input type="tel" name="telefon" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white transition">
+                                <input type="tel" name="telefon" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50">
                             </div>
                             <div class="space-y-1">
                                 <label class="text-sm font-bold text-slate-700">E-posta Adresi:</label>
-                                <input type="email" name="eposta" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white transition">
+                                <input type="email" name="eposta" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50">
                             </div>
                         </div>
                     </section>
@@ -110,7 +111,7 @@
                     <!-- 1) Okul Değişikliği Gündemi -->
                     <section class="space-y-6 pt-6 border-t border-slate-100">
                         <h3 class="text-lg font-bold text-slate-900">1) Okul değişikliği gündeminiz</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed italic">Ankara’dan İstanbul’a taşınma planınız olduğunu biliyoruz. Okul değişikliği gündeminizde taşınma birincil neden mi? Taşınmanın dışında etkileyen başka faktörler var mı?</p>
+                        <p class="text-sm text-slate-600 italic">Ankara’dan İstanbul’a taşınma planınız olduğunu biliyoruz. Okul değişikliği gündeminizde taşınma birincil neden mi? Taşınmanın dışında etkileyen başka faktörler var mı?</p>
                         
                         <div class="grid grid-cols-1 gap-3">
                             <label class="flex items-center p-4 border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
@@ -133,208 +134,93 @@
                                 <input type="checkbox" name="degisiklik_gundemi" value="Taşınma + sınav/gelecek planı" class="w-5 h-5 text-orange-600 rounded">
                                 <span class="ml-3 text-sm font-medium">Taşınma + sınav/gelecek planı</span>
                             </label>
-                            <div class="flex items-center space-x-3 p-2">
-                                <span class="text-sm font-bold text-slate-500 whitespace-nowrap uppercase">Diğer:</span>
-                                <input type="text" name="degisiklik_gundemi_diger" class="flex-1 border-b border-slate-300 focus:border-orange-500 bg-transparent outline-none py-1">
-                            </div>
+                            <div class="flex items-center p-2"><span class="text-sm font-bold mr-2 uppercase text-slate-500">Diğer:</span><input type="text" name="degisiklik_gundemi_diger" class="flex-1 border-b outline-none"></div>
                         </div>
-                        <div class="mt-4">
-                            <label class="text-sm font-bold text-slate-700">Kısa açıklama (varsa):</label>
-                            <textarea name="neden_aciklama" rows="2" class="w-full px-4 py-3 mt-1 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white transition"></textarea>
-                        </div>
+                        <div><label class="text-sm font-bold">Kısa açıklama (varsa):</label><textarea name="neden_aciklama" rows="2" class="w-full px-4 py-3 mt-1 rounded-xl border bg-slate-50 focus:bg-white"></textarea></div>
                     </section>
 
-                    <!-- 1A) Taşınma Detayları -->
+                    <!-- 1A) Taşınma -->
                     <section class="space-y-6 pt-6 border-t border-slate-100">
                         <h3 class="text-lg font-bold text-slate-900">1A) Taşınma</h3>
-                        
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="space-y-1">
-                                <label class="text-sm font-bold text-slate-700">Taşınma tarihi (tahmini):</label>
-                                <input type="text" name="tasinma_tarihi" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white transition">
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-sm font-bold text-slate-700">İstanbul’da planlanan ilçe/semt(ler):</label>
-                                <input type="text" name="hedef_semt" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white transition">
+                            <div class="space-y-1"><label class="text-sm font-bold">Taşınma tarihi (tahmini):</label><input type="text" name="tasinma_tarihi" class="w-full px-4 py-3 rounded-xl border bg-slate-50"></div>
+                            <div class="space-y-1"><label class="text-sm font-bold">İstanbul’da planlanan ilçe/semt(ler):</label><input type="text" name="hedef_semt" class="w-full px-4 py-3 rounded-xl border bg-slate-50"></div>
+                        </div>
+                        <div>
+                            <label class="text-sm font-bold italic">Okula ulaşım (tek yön) üst sınırınız:</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2">
+                                <label class="flex items-center p-3 border rounded-xl cursor-pointer hover:bg-orange-50 transition"><input type="radio" name="ulasim_siniri" value="15 dk" class="mr-2"> 15 dk</label>
+                                <label class="flex items-center p-3 border rounded-xl cursor-pointer hover:bg-orange-50 transition"><input type="radio" name="ulasim_siniri" value="30 dk" class="mr-2"> 30 dk</label>
+                                <label class="flex items-center p-3 border rounded-xl cursor-pointer hover:bg-orange-50 transition"><input type="radio" name="ulasim_siniri" value="45 dk" class="mr-2"> 45 dk</label>
+                                <label class="flex items-center p-3 border rounded-xl cursor-pointer hover:bg-orange-50 transition"><input type="radio" name="ulasim_siniri" value="60 dk+" class="mr-2"> 60 dk+</label>
                             </div>
                         </div>
-
-                        <div class="space-y-3">
-                            <label class="text-sm font-bold text-slate-700 italic">Okula ulaşım (tek yön) üst sınırınız:</label>
-                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                                <label class="flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                    <input type="radio" name="ulasim_siniri" value="15 dk" class="mr-2 text-orange-600"> <span class="text-sm">15 dk</span>
-                                </label>
-                                <label class="flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                    <input type="radio" name="ulasim_siniri" value="30 dk" class="mr-2 text-orange-600"> <span class="text-sm">30 dk</span>
-                                </label>
-                                <label class="flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                    <input type="radio" name="ulasim_siniri" value="45 dk" class="mr-2 text-orange-600"> <span class="text-sm">45 dk</span>
-                                </label>
-                                <label class="flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                    <input type="radio" name="ulasim_siniri" value="60 dk+" class="mr-2 text-orange-600"> <span class="text-sm">60 dk+</span>
-                                </label>
+                        <div>
+                            <label class="text-sm font-bold italic">Okula başlama hedefi:</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-2">
+                                <label class="flex items-center p-3 border rounded-xl cursor-pointer hover:bg-orange-50 transition"><input type="radio" name="baslama_hedefi" value="Hemen" class="mr-2"> Hemen</label>
+                                <label class="flex items-center p-3 border rounded-xl cursor-pointer hover:bg-orange-50 transition"><input type="radio" name="baslama_hedefi" value="Dönem arası" class="mr-2"> Dönem arası</label>
+                                <label class="flex items-center p-3 border rounded-xl cursor-pointer hover:bg-orange-50 transition"><input type="radio" name="baslama_hedefi" value="Sonraki yıl" class="mr-2"> Bir sonraki eğitim yılı</label>
                             </div>
                         </div>
-
-                        <div class="space-y-3">
-                            <label class="text-sm font-bold text-slate-700 italic">Okula başlama hedefi:</label>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                                <label class="flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                    <input type="radio" name="baslama_hedefi" value="Hemen" class="mr-2 text-orange-600"> <span class="text-sm">Hemen</span>
-                                </label>
-                                <label class="flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                    <input type="radio" name="baslama_hedefi" value="Dönem arası" class="mr-2 text-orange-600"> <span class="text-sm">Dönem arası</span>
-                                </label>
-                                <label class="flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                    <input type="radio" name="baslama_hedefi" value="Bir sonraki eğitim yılı" class="mr-2 text-orange-600"> <span class="text-sm">Bir sonraki eğitim yılı</span>
-                                </label>
-                            </div>
-                        </div>
-
                         <div class="space-y-4">
-                            <label class="text-sm font-bold text-slate-700 italic">"Olmazsa olmaz" 3 kriteriniz (en fazla 3):</label>
+                            <label class="text-sm font-bold">"Olmazsa olmaz" 3 kriteriniz (en fazla 3):</label>
                             <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                                <label class="flex items-center p-3 text-xs font-bold border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                    <input type="checkbox" name="kriterler" value="Eğitim dili" class="mr-2 criteria-box"> Eğitim dili
-                                </label>
-                                <label class="flex items-center p-3 text-xs font-bold border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                    <input type="checkbox" name="kriterler" value="Akademik seviye" class="mr-2 criteria-box"> Akademik seviye
-                                </label>
-                                <label class="flex items-center p-3 text-xs font-bold border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                    <input type="checkbox" name="kriterler" value="Rehberlik/psikolojik destek" class="mr-2 criteria-box"> Rehberlik/destek
-                                </label>
-                                <label class="flex items-center p-3 text-xs font-bold border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                    <input type="checkbox" name="kriterler" value="Okul kültürü-disiplin" class="mr-2 criteria-box"> Kültür-disiplin
-                                </label>
-                                <label class="flex items-center p-3 text-xs font-bold border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                    <input type="checkbox" name="kriterler" value="Yabancı program" class="mr-2 criteria-box"> Yabancı program
-                                </label>
-                                <label class="flex items-center p-3 text-xs font-bold border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                    <input type="checkbox" name="kriterler" value="Spor/sanat imkanları" class="mr-2 criteria-box"> Spor/sanat
-                                </label>
-                                <label class="flex items-center p-3 text-xs font-bold border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                    <input type="checkbox" name="kriterler" value="Bütçe" class="mr-2 criteria-box"> Bütçe
-                                </label>
-                                <label class="flex items-center p-3 text-xs font-bold border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                    <input type="checkbox" name="kriterler" value="Lokasyon/servis" class="mr-2 criteria-box"> Lokasyon/servis
-                                </label>
-                                <label class="flex items-center p-3 text-xs font-bold border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                    <input type="checkbox" name="kriterler" value="Sınıf mevcudu" class="mr-2 criteria-box"> Sınıf mevcudu
-                                </label>
-                            </div>
-                            <div class="flex items-center space-x-3 p-2">
-                                <span class="text-xs font-bold text-slate-500 uppercase">Diğer:</span>
-                                <input type="text" name="kriterler_diger" class="flex-1 border-b border-slate-300 focus:border-orange-500 bg-transparent outline-none py-1">
+                                <label class="flex items-center p-2 text-xs font-bold border rounded-xl cursor-pointer hover:bg-orange-50 transition"><input type="checkbox" name="kriterler" value="Eğitim dili" class="mr-2 criteria-box"> Eğitim dili</label>
+                                <label class="flex items-center p-2 text-xs font-bold border rounded-xl cursor-pointer hover:bg-orange-50 transition"><input type="checkbox" name="kriterler" value="Akademik seviye" class="mr-2 criteria-box"> Akademik seviye</label>
+                                <label class="flex items-center p-2 text-xs font-bold border rounded-xl cursor-pointer hover:bg-orange-50 transition"><input type="checkbox" name="kriterler" value="Rehberlik" class="mr-2 criteria-box"> Rehberlik</label>
+                                <label class="flex items-center p-2 text-xs font-bold border rounded-xl cursor-pointer hover:bg-orange-50 transition"><input type="checkbox" name="kriterler" value="Okul kültürü" class="mr-2 criteria-box"> Kültür</label>
+                                <label class="flex items-center p-2 text-xs font-bold border rounded-xl cursor-pointer hover:bg-orange-50 transition"><input type="checkbox" name="kriterler" value="Bütçe" class="mr-2 criteria-box"> Bütçe</label>
+                                <label class="flex items-center p-2 text-xs font-bold border rounded-xl cursor-pointer hover:bg-orange-50 transition"><input type="checkbox" name="kriterler" value="Servis" class="mr-2 criteria-box"> Servis</label>
                             </div>
                         </div>
-
-                        <div class="space-y-1">
-                            <label class="text-sm font-bold text-slate-700">Kardeş/servis/lojistik notu (varsa):</label>
-                            <textarea name="lojistik_notu" rows="2" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white transition"></textarea>
-                        </div>
+                        <div class="space-y-1"><label class="text-sm font-bold">Lojistik notu (varsa):</label><textarea name="lojistik_notu" rows="2" class="w-full px-4 py-3 rounded-xl border bg-slate-50"></textarea></div>
                     </section>
 
-                    <!-- 2 & 3. Sorular -->
+                    <!-- Sorular 2-6 -->
                     <section class="space-y-8 pt-6 border-t border-slate-100">
-                        <div class="space-y-2">
-                            <h3 class="text-lg font-bold text-slate-900">2) Okul değişikliği konusunda şu ana kadar attığınız adımlar</h3>
-                            <p class="text-xs text-slate-500 italic">(Örn: araştırdığınız okullar, görüştüğünüz kişiler, ziyaretler, sınav/kabul süreçleri vb.)</p>
-                            <textarea name="atilan_adimlar" rows="4" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white transition"></textarea>
-                        </div>
-
-                        <div class="space-y-2">
-                            <h3 class="text-lg font-bold text-slate-900">3) Öğrencinin daha önce okul değişikliği oldu mu?</h3>
-                            <p class="text-xs text-slate-500 italic">Olduysa: ne zaman, nedeni, geçiş sonrası uyum nasıl oldu?</p>
-                            <textarea name="gecmis_degisiklik" rows="4" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white transition"></textarea>
-                        </div>
-                    </section>
-
-                    <!-- 4) Destek Talebi -->
-                    <section class="space-y-6 pt-6 border-t border-slate-100">
-                        <h3 class="text-lg font-bold text-slate-900">4) Bu süreçte bizden almak istediğiniz destek</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <label class="flex items-center p-4 border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                <input type="checkbox" name="destek_talebi" value="Okul seçimi ve yönlendirme" class="w-5 h-5 text-orange-600 rounded">
-                                <span class="ml-3 text-sm font-medium">Okul seçimi ve yönlendirme</span>
-                            </label>
-                            <label class="flex items-center p-4 border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                <input type="checkbox" name="destek_talebi" value="Öğrencinin akademik – psikolojik değerlendirilmesi" class="w-5 h-5 text-orange-600 rounded">
-                                <span class="ml-3 text-sm font-medium">Öğrencinin değerlendirilmesi</span>
-                            </label>
-                            <label class="flex items-center p-4 border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                <input type="checkbox" name="destek_talebi" value="Aile – okul – öğrenci üçgeninde yol haritası" class="w-5 h-5 text-orange-600 rounded">
-                                <span class="ml-3 text-sm font-medium">Aile – okul – öğrenci yol haritası</span>
-                            </label>
-                            <label class="flex items-center p-4 border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                <input type="checkbox" name="destek_talebi" value="Sınav sürecine uygun okul planlaması" class="w-5 h-5 text-orange-600 rounded">
-                                <span class="ml-3 text-sm font-medium">Sınav sürecine uygun okul planlaması</span>
-                            </label>
-                            <label class="flex items-center p-4 border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                <input type="checkbox" name="destek_talebi" value="Geçiş süreci danışmanlığı" class="w-5 h-5 text-orange-600 rounded">
-                                <span class="ml-3 text-sm font-medium">Geçiş süreci danışmanlığı</span>
-                            </label>
-                            <label class="flex items-center p-4 border border-slate-200 rounded-xl cursor-pointer hover:bg-orange-50 transition">
-                                <input type="checkbox" name="destek_talebi" value="Genel eğitim koçluğu / mentorluk" class="w-5 h-5 text-orange-600 rounded">
-                                <span class="ml-3 text-sm font-medium">Genel koçluk / mentorluk</span>
-                            </label>
-                            <div class="flex items-center space-x-3 p-2 md:col-span-2">
-                                <span class="text-sm font-bold text-slate-500 whitespace-nowrap uppercase">Diğer:</span>
-                                <input type="text" name="destek_talebi_diger" class="flex-1 border-b border-slate-300 focus:border-orange-500 bg-transparent outline-none py-1">
+                        <div><h3 class="font-bold">2) Okul değişikliği konusunda şu ana kadar attığınız adımlar</h3><textarea name="atilan_adimlar" rows="4" class="w-full px-4 py-3 mt-1 border bg-slate-50 rounded-xl"></textarea></div>
+                        <div><h3 class="font-bold">3) Öğrencinin daha önce okul değişikliği oldu mu?</h3><textarea name="gecmis_degisiklik" rows="4" class="w-full px-4 py-3 mt-1 border bg-slate-50 rounded-xl"></textarea></div>
+                        <div class="space-y-3">
+                            <h3 class="font-bold">4) Bu süreçte bizden almak istediğiniz destek</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                <label class="flex items-center p-3 border rounded-xl cursor-pointer hover:bg-orange-50 transition"><input type="checkbox" name="destek_talebi" value="Okul seçimi" class="mr-2"> Okul seçimi ve yönlendirme</label>
+                                <label class="flex items-center p-3 border rounded-xl cursor-pointer hover:bg-orange-50 transition"><input type="checkbox" name="destek_talebi" value="Değerlendirme" class="mr-2"> Öğrencinin değerlendirilmesi</label>
+                                <label class="flex items-center p-3 border rounded-xl cursor-pointer hover:bg-orange-50 transition"><input type="checkbox" name="destek_talebi" value="Yol haritası" class="mr-2"> Yol haritası oluşturma</label>
+                                <div class="flex items-center p-2"><span class="text-xs font-bold mr-2 uppercase text-slate-500">Diğer:</span><input type="text" name="destek_talebi_diger" class="flex-1 border-b outline-none"></div>
                             </div>
                         </div>
+                        <div><h3 class="font-bold">5) Görüşme sonunda en net ne kazanmış olmak istersiniz?</h3><textarea name="kazanim_beklentisi" rows="4" class="w-full px-4 py-3 mt-1 border bg-slate-50 rounded-xl"></textarea></div>
+                        <div><h3 class="font-bold">6) Eklemek istediğiniz başka bir bilgi var mı?</h3><textarea name="ek_bilgiler" rows="4" class="w-full px-4 py-3 mt-1 border bg-slate-50 rounded-xl"></textarea></div>
                     </section>
 
-                    <!-- 5 & 6. Sorular -->
-                    <section class="space-y-8 pt-6 border-t border-slate-100">
-                        <div class="space-y-2">
-                            <h3 class="text-lg font-bold text-slate-900">5) Görüşme sonunda en net ne kazanmış olmak istersiniz?</h3>
-                            <p class="text-xs text-slate-500 italic">(Örn: “Doğru okul mu netleşsin”, “Net bir yol haritamız olsun”, “Önceliklerimizi belirleyelim” gibi)</p>
-                            <textarea name="kazanim_beklentisi" rows="4" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white transition"></textarea>
-                        </div>
-
-                        <div class="space-y-2">
-                            <h3 class="text-lg font-bold text-slate-900">6) Eklemek istediğiniz başka bir bilgi var mı?</h3>
-                            <p class="text-xs text-slate-500 italic leading-normal">(Örn: Akademik, sosyal, duygusal, öğrenme farklılıkları/sağlık, okul kültürü)</p>
-                            <textarea name="ek_bilgiler" rows="4" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white transition"></textarea>
-                        </div>
-                    </section>
-
-                    <!-- Submit -->
                     <div class="pt-10 text-center border-t border-slate-100">
-                        <button type="submit" id="submit-btn" class="w-full sm:w-auto bg-orange-600 hover:bg-orange-700 text-white font-bold py-5 px-20 rounded-2xl shadow-xl shadow-orange-600/20 transition-all active:scale-95 text-lg">
-                            Formu Gönder
-                        </button>
-                        <p class="mt-6 text-sm text-slate-400 font-medium tracking-tight">Teşekkür ederiz. <span class="text-orange-600">Eğitimpedia Rehberlik</span></p>
+                        <button type="submit" id="submit-btn" class="w-full sm:w-auto bg-orange-600 hover:bg-orange-700 text-white font-bold py-5 px-20 rounded-2xl shadow-xl active:scale-95 text-lg transition-all">Formu Gönder</button>
                     </div>
                 </form>
             </div>
 
-            <!-- Başarı Mesajı -->
             <div id="success-message" class="hidden p-20 text-center">
-                <div class="w-24 h-24 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-8">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                </div>
-                <h3 class="text-3xl font-extrabold text-slate-900 mb-4">Başvurunuz Alındı!</h3>
-                <p class="text-slate-600 mb-8 max-w-sm mx-auto">Bilgileriniz başarıyla kaydedildi. Uzman ekibimiz en kısa sürede sizinle iletişime geçecektir.</p>
-                <button onclick="window.location.reload()" class="text-orange-600 font-bold hover:underline">Yeni bir form doldur</button>
+                <div class="w-24 h-24 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce"><svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></div>
+                <h3 class="text-3xl font-extrabold text-slate-900 mb-4">Başarıyla Gönderildi!</h3>
+                <p class="text-slate-600 mb-8">Bilgileriniz kaydedildi. Sizinle en kısa sürede iletişime geçeceğiz.</p>
+                <button onclick="window.location.reload()" class="text-orange-600 font-bold hover:underline">Yeni Form Doldur</button>
             </div>
         </div>
 
-        <!-- YÖNETİCİ PANELİ -->
+        <!-- ADMIN PANELİ -->
         <div id="admin-view" class="admin-view space-y-6">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <h2 class="text-2xl font-bold text-slate-900">Yönetici Paneli</h2>
-                <div class="flex gap-2">
-                    <button id="export-btn" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition flex items-center shadow-lg shadow-green-600/20">
-                        Excel (CSV) İndir
-                    </button>
-                    <button id="back-to-form" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-5 py-2.5 rounded-xl text-sm font-bold transition">Kapat</button>
-                </div>
+                <button id="back-to-form" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-5 py-2.5 rounded-xl text-sm font-bold transition">Kapat</button>
             </div>
             <div id="submissions-list" class="space-y-4">Yükleniyor...</div>
         </div>
     </main>
+
+    <footer class="py-12 text-center text-slate-400 text-xs">
+        <p>© 2024 Eğitimpedia Rehberlik. Tüm Hakları Saklıdır.</p>
+    </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -343,15 +229,13 @@
 
         // Config check
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : MY_FIREBASE_CONFIG;
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'egitimpedia-form';
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'egitimpedia-prod';
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
         let currentUser = null;
-        let allSubmissions = [];
 
-        // Auth
         const initAuth = async () => {
           try {
             if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -359,7 +243,7 @@
             } else {
               await signInAnonymously(auth);
             }
-          } catch (e) { console.error("Oturum hatası:", e); }
+          } catch (e) { console.error("Auth hatası:", e); }
         };
         initAuth();
 
@@ -379,55 +263,51 @@
             submitBtn.innerText = "Gönderiliyor...";
 
             const formData = new FormData(form);
-            const data = { userId: currentUser.uid, createdAt: serverTimestamp() };
-
+            const data = {};
+            
             for (const [key, value] of formData.entries()) {
-                if (data[key]) {
-                    data[key] = data[key] + ", " + value;
-                } else {
-                    data[key] = value;
-                }
+                data[key] = data[key] ? data[key] + ", " + value : value;
             }
 
-            // Diğer alanlarını birleştirme
-            if (data.degisiklik_gundemi_diger) data.degisiklik_gundemi += " (Diğer: " + data.degisiklik_gundemi_diger + ")";
-            if (data.kriterler_diger) data.olmazsa_olmaz_kriterler = (data.kriterler || "") + " (Diğer: " + data.kriterler_diger + ")";
-            else data.olmazsa_olmaz_kriterler = data.kriterler || "";
-            if (data.destek_talebi_diger) data.destek_talebi += " (Diğer: " + data.destek_talebi_diger + ")";
+            // "Diğer" alanlarını asıl kategorilerle birleştirme
+            if (data.degisiklik_gundemi_diger) data.degisiklik_gundemi = (data.degisiklik_gundemi || "") + " (Diğer: " + data.degisiklik_gundemi_diger + ")";
+            if (data.destek_talebi_diger) data.destek_talebi = (data.destek_talebi || "") + " (Diğer: " + data.destek_talebi_diger + ")";
 
             try {
-                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'submissions'), data);
-                
-                if (GOOGLE_SHEETS_URL) {
-                    const sheetsPayload = {...data};
-                    delete sheetsPayload.createdAt; 
-                    sheetsPayload.timestamp = new Date().toLocaleString('tr-TR');
+                // 1. Google Sheets Kaydı
+                await fetch(GOOGLE_SHEETS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify(data)
+                });
 
-                    await fetch(GOOGLE_SHEETS_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(sheetsPayload)
-                    });
+                // 2. Firestore Kaydı
+                if (db) {
+                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'submissions'), {
+                        ...data,
+                        createdAt: serverTimestamp()
+                    }).catch(e => console.warn("Firestore hatası"));
                 }
 
                 document.getElementById('form-container').classList.add('hidden');
                 document.getElementById('success-message').classList.remove('hidden');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+
             } catch (err) {
-                console.error(err);
+                console.error("Gönderim hatası:", err);
                 submitBtn.disabled = false;
                 submitBtn.innerText = "Hata Oluştu, Tekrar Dene";
             }
         });
 
+        // Maksimum 3 kriter seçimi
         document.querySelectorAll('.criteria-box').forEach(cb => {
             cb.addEventListener('change', () => {
-                const count = document.querySelectorAll('.criteria-box:checked').length;
-                if (count > 3) cb.checked = false;
+                if (document.querySelectorAll('.criteria-box:checked').length > 3) cb.checked = false;
             });
         });
 
+        // Admin Toggle
         document.getElementById('admin-toggle').addEventListener('click', () => {
             if (prompt("Şifre:") === "1234") document.body.classList.add('admin-active');
         });
@@ -441,53 +321,15 @@
             onSnapshot(q, (snapshot) => {
                 const list = document.getElementById('submissions-list');
                 list.innerHTML = "";
-                allSubmissions = [];
-                
-                if (snapshot.empty) {
-                    list.innerHTML = "<div class='p-12 text-center text-slate-400 border rounded-2xl border-dashed'>Henüz başvuru bulunmuyor.</div>";
-                    return;
-                }
-
                 snapshot.forEach(doc => {
                     const d = doc.data();
-                    allSubmissions.push(d);
-                    const date = d.createdAt?.toDate().toLocaleString('tr-TR') || 'İşleniyor...';
                     const card = document.createElement('div');
-                    card.className = "bg-white p-6 rounded-2xl border border-orange-100 shadow-sm hover:shadow-md transition cursor-pointer";
-                    card.innerHTML = `
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="font-bold text-slate-900 text-lg">${d.ogrenci_ad || 'İsimsiz'}</h4>
-                                <p class="text-sm text-slate-500">${d.veli_ad || ''} • ${d.telefon || ''}</p>
-                            </div>
-                            <span class="text-[10px] bg-slate-100 px-2 py-1 rounded-full font-bold text-slate-500">${date}</span>
-                        </div>
-                    `;
+                    card.className = "bg-white p-4 rounded-xl border border-orange-100 shadow-sm";
+                    card.innerHTML = `<strong>${d.ogrenci_ad || 'İsimsiz'}</strong> - ${d.veli_ad || ''}`;
                     list.appendChild(card);
                 });
-            }, (err) => console.error("Erişim Hatası:", err));
-        }
-
-        document.getElementById('export-btn').addEventListener('click', () => {
-            if (allSubmissions.length === 0) return;
-            let csv = "\uFEFF"; 
-            const sample = allSubmissions[0];
-            const headers = Object.keys(sample).filter(k => k !== 'userId' && k !== 'createdAt').join(";");
-            csv += headers + "\n";
-
-            allSubmissions.forEach(sub => {
-                const row = Object.keys(sample).filter(k => k !== 'userId' && k !== 'createdAt').map(h => {
-                    return `"${String(sub[h] || '').replace(/"/g, '""')}"`;
-                }).join(";");
-                csv += row + "\n";
             });
-
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = `Egitimpedia_Basvurular_${new Date().toLocaleDateString('tr-TR')}.csv`;
-            link.click();
-        });
+        }
     </script>
 </body>
 </html>
