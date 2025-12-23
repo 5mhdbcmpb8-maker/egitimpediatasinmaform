@@ -9,7 +9,7 @@
     <!-- Three.js for Premium 3D Fluid Experience -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- Designer Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root { --brand-orange: #f97316; --brand-dark: #0f172a; }
@@ -136,7 +136,7 @@
             <div id="form-container" class="glass-container rounded-[4rem] sm:rounded-[6rem] overflow-hidden">
                 
                 <header class="mobile-header p-12 sm:p-20 text-center border-b border-slate-50 bg-gradient-to-b from-white to-transparent">
-                    <h1 class="mobile-title text-3xl sm:text-5xl font-black tracking-tighter text-slate-900 mb-8 leading-[0.95]">
+                    <h1 class="mobile-title text-3xl sm:text-6xl font-black tracking-tighter text-slate-900 mb-8 leading-[0.95]">
                         Veli Ön Görüşme <span class="text-orange-500">Formu</span>
                     </h1>
                     <p class="text-slate-700 text-sm sm:text-lg font-bold max-w-2xl mx-auto leading-relaxed border-t border-slate-100 pt-8">
@@ -223,7 +223,7 @@
                             </label>
                             <div class="p-5 sm:p-7 bg-white rounded-[2.5rem] border border-dashed border-slate-200 flex items-center">
                                 <span class="text-[10px] font-black text-slate-300 uppercase tracking-widest mr-4">Diğer</span>
-                                <input type="text" name="soru_1_diger" placeholder="Lütfen detaylandırın..." class="flex-1 bg-transparent outline-none text-sm font-bold border-b border-transparent focus:border-orange-400 transition-colors">
+                                <input type="text" name="soru_1_diger" placeholder="Lütfen detaylandırın..." class="flex-1 bg-transparent outline-none text-sm font-bold">
                             </div>
                         </div>
                         <div class="space-y-2">
@@ -262,7 +262,7 @@
                                 <label class="flex items-center p-5 bg-white/40 rounded-2xl border border-slate-100 cursor-pointer hover:bg-orange-50 transition-all"><input type="checkbox" name="kriter_choices" value="Eğitim dili" class="criteria-box mr-3"> <span class="text-[9px] font-black uppercase">Eğitim Dili</span></label>
                                 <label class="flex items-center p-5 bg-white/40 rounded-2xl border border-slate-100 cursor-pointer hover:bg-orange-50 transition-all"><input type="checkbox" name="kriter_choices" value="Akademik seviye" class="criteria-box mr-3"> <span class="text-[9px] font-black uppercase">Akademik Seviye</span></label>
                                 <label class="flex items-center p-5 bg-white/40 rounded-2xl border border-slate-100 cursor-pointer hover:bg-orange-50 transition-all"><input type="checkbox" name="kriter_choices" value="Rehberlik/psikolojik destek" class="criteria-box mr-3"> <span class="text-[9px] font-black uppercase">Rehberlik / Psikolojik</span></label>
-                                <label class="flex items-center p-5 bg-white/40 rounded-2xl border border-slate-100 cursor-pointer hover:bg-orange-50 transition-all"><input type="checkbox" name="kriter_choices" value="Okul kültürü-disiplin" class="criteria-box mr-3"> <span class="text-[9px] font-black uppercase">Kültür / Disiplin</span></label>
+                                <label class="flex items-center p-5 bg-white/40 rounded-2xl border border-slate-100 cursor-pointer hover:bg-orange-50 transition-all"><input type="checkbox" name="kriter_choices" value="Okul kültürü-disiplin" class="criteria-box mr-3"> <span class="text-[9px] font-black uppercase">Disiplin</span></label>
                                 <label class="flex items-center p-5 bg-white/40 rounded-2xl border border-slate-100 cursor-pointer hover:bg-orange-50 transition-all"><input type="checkbox" name="kriter_choices" value="Yabancı program" class="criteria-box mr-3"> <span class="text-[9px] font-black uppercase">Yabancı Program</span></label>
                                 <label class="flex items-center p-5 bg-white/40 rounded-2xl border border-slate-100 cursor-pointer hover:bg-orange-50 transition-all"><input type="checkbox" name="kriter_choices" value="Spor/sanat imkanları" class="criteria-box mr-3"> <span class="text-[9px] font-black uppercase">Spor / Sanat</span></label>
                                 <label class="flex items-center p-5 bg-white/40 rounded-2xl border border-slate-100 cursor-pointer hover:bg-orange-50 transition-all"><input type="checkbox" name="kriter_choices" value="Bütçe" class="criteria-box mr-3"> <span class="text-[9px] font-black uppercase">Bütçe</span></label>
@@ -339,12 +339,6 @@
         </div>
     </main>
 
-    <!-- Görünmez HubSpot Embed (Takip Çerezleri İçin) -->
-    <div style="display:none">
-        <script src="https://js-eu1.hsforms.net/forms/embed/147074714.js" defer></script>
-        <div class="hs-form-frame" data-region="eu1" data-form-id="0b819a1d-3b88-4434-88a8-24f18d8c06f7" data-portal-id="147074714"></div>
-    </div>
-
     <footer class="relative z-10 py-32 text-center">
         <div class="max-w-[100px] mx-auto h-0.5 bg-orange-200 rounded-full mb-10 opacity-30"></div>
         <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.6em] opacity-60">© 2025 Eğitimpedia Rehberlik</p>
@@ -357,6 +351,8 @@
 
         window.handleMasterSubmit = async function(e) {
             e.preventDefault();
+            e.stopPropagation();
+
             const submitBtn = document.getElementById('submit-btn');
             submitBtn.disabled = true;
             submitBtn.innerHTML = `<span>◌</span> GÖNDERİLİYOR...`;
@@ -365,19 +361,24 @@
                 const form = document.getElementById('master-form');
                 const fd = new FormData(form);
                 
-                // HubSpot Tracking Cookie (hutk)
-                const hutk = document.cookie.split("; ").find(r => r.startsWith("hubspotutk="))?.split("=")[1];
+                // HubSpot Tracking Cookie (hutk) safely accessed inside try block
+                let hutk;
+                try {
+                    hutk = document.cookie.split("; ").find(r => r.startsWith("hubspotutk="))?.split("=")[1];
+                } catch (cookieError) {
+                    console.warn("Security limitation: Cookie access blocked in this environment.");
+                }
 
-                // Name Splitting
+                // Name Splitting for standard HubSpot fields
                 const fullName = fd.get('veli_ad') || "";
                 const nameParts = fullName.trim().split(/\s+/);
                 const firstName = nameParts[0] || "";
                 const lastName = nameParts.length > 1 ? nameParts.slice(1).join(" ") : "";
 
                 // Choice Construction
-                const soru1Combined = Array.from(fd.getAll('soru_1_choices')).join('; ') + (fd.get('soru_1_diger') ? " | " + fd.get('soru_1_diger') : "");
-                const kriterCombined = Array.from(fd.getAll('kriter_choices')).join('; ') + (fd.get('kriterler_diger') ? " | " + fd.get('kriterler_diger') : "");
-                const destekCombined = Array.from(fd.getAll('destek_choices')).join('; ') + (fd.get('destek_diger') ? " | " + fd.get('destek_diger') : "");
+                const soru1Combined = Array.from(fd.getAll('soru_1_choices')).join('; ') + (fd.get('soru_1_diger') ? " | Diğer: " + fd.get('soru_1_diger') : "");
+                const kriterCombined = Array.from(fd.getAll('kriter_choices')).join('; ') + (fd.get('kriterler_diger') ? " | Diğer: " + fd.get('kriterler_diger') : "") + (fd.get('lojistik_notu') ? " | Lojistik: " + fd.get('lojistik_notu') : "");
+                const destekCombined = Array.from(fd.getAll('destek_choices')).join('; ') + (fd.get('destek_diger') ? " | Diğer: " + fd.get('destek_diger') : "");
 
                 const finalData = {
                     timestamp: new Date().toLocaleString('tr-TR'),
@@ -394,22 +395,29 @@
                     planlanan_semt: fd.get('planlanan_semt') || "",
                     ulasim_siniri: fd.get('ulasim_siniri') || "",
                     kriterler: kriterCombined,
-                    lojistik_notu: fd.get('lojistik_notu') || "",
                     atilan_adimlar: fd.get('atilan_adimlar') || "",
                     destek: destekCombined,
                     ek_bilgiler: fd.get('ek_bilgiler') || ""
                 };
 
-                // 1. HubSpot Submission (Wait for response)
+                // 1. Google Sheets Submission (Silent Post)
+                fetch(G_SCRIPT_URL, { 
+                    method: 'POST', 
+                    mode: 'no-cors', 
+                    body: JSON.stringify(finalData) 
+                }).catch(e => console.warn("Sheets Post Error:", e));
+
+                // 2. HubSpot Integration (Wait for success)
                 const hubPayload = {
                     fields: [
                         { name: "email", value: finalData.eposta },
                         { name: "phone", value: finalData.telefon },
                         { name: "firstname", value: firstName },
                         { name: "lastname", value: lastName },
-                        { name: "address", value: finalData.adres },
-                        { name: "ogrenci_adi_soyadi", value: finalData.ogrenci_ad },
-                        { name: "ogrenci_yasi_sinifi", value: finalData.ogrenci_yas_sinif },
+                        { name: "veli_ad_soyad", value: finalData.veli_ad },
+                        { name: "adres_il__ilce", value: finalData.adres },
+                        { name: "ogrencinin_ad_soyad", value: finalData.ogrenci_ad },
+                        { name: "ogrenci_yas__snf", value: finalData.ogrenci_yas_sinif },
                         { name: "mevcut_okulu", value: finalData.mevcut_okul },
                         { name: "okul_degisikligi_gundemi", value: finalData.soru_1 },
                         { name: "soru_1_kisa_aciklama", value: finalData.soru_1_aciklama },
@@ -430,7 +438,13 @@
                         consent: {
                             consentToProcess: true,
                             text: "I agree to allow processing.",
-                            communications: [{ value: false, subscriptionTypeId: 999 }]
+                            communications: [
+                                { 
+                                    value: false, 
+                                    subscriptionTypeId: 999,
+                                    text: "Pazarlama iletişimleri için onay verilmedi." 
+                                }
+                            ]
                         }
                     }
                 };
@@ -441,42 +455,38 @@
                     body: JSON.stringify(hubPayload)
                 });
 
-                if (!hsRes.ok) {
-                    const errTxt = await hsRes.text();
-                    console.error("HubSpot Error:", errTxt);
-                    alert("Kayıt HubSpot'a iletilemedi. Lütfen alanları kontrol edin.");
+                if (hsRes.ok) {
+                    submitBtn.innerHTML = `✓ BAŞARILI - YÖNLENDİRİLİYORSUNUZ...`;
+                    setTimeout(() => { 
+                        // Cross-origin safe redirection
+                        try {
+                            if (window.top !== window.self) {
+                                window.top.location.href = REDIRECT_URL;
+                            } else {
+                                window.location.href = REDIRECT_URL;
+                            }
+                        } catch (redirectError) {
+                            window.location.href = REDIRECT_URL;
+                        }
+                    }, 800);
+                } else {
+                    const errBody = await hsRes.text();
+                    console.error("HubSpot Submit Failed:", hsRes.status, errBody);
+                    alert("Kayıt HubSpot tarafında oluşturulamadı. Lütfen zorunlu alanları kontrol edip tekrar deneyin.");
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = "BAŞVURUYU TAMAMLA";
-                    return false;
                 }
-
-                // 2. Google Sheets Submission (Silent Post)
-                fetch(G_SCRIPT_URL, { 
-                    method: 'POST', 
-                    mode: 'no-cors', 
-                    body: JSON.stringify(finalData) 
-                }).catch(e => console.warn("Sheets Error:", e));
-
-                // 3. Final Success Redirect
-                submitBtn.innerHTML = `✓ BAŞARILI - YÖNLENDİRİLİYORSUNUZ...`;
-                setTimeout(() => {
-                    if (window.top !== window.self) {
-                        window.top.location.href = REDIRECT_URL;
-                    } else {
-                        window.location.href = REDIRECT_URL;
-                    }
-                }, 800);
 
             } catch (err) {
                 console.error("Critical submission error:", err);
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = "BAŞVURUYU TAMAMLA";
-                alert("Bağlantı hatası oluştu.");
+                alert("Bağlantı hatası oluştu. Lütfen tekrar deneyiniz.");
             }
             return false;
         };
 
-        // UI Helpers
+        // Radio UI Handling
         document.querySelectorAll('input[type="radio"]').forEach(radio => {
             radio.addEventListener('change', () => {
                 const group = radio.name;
@@ -491,6 +501,7 @@
             });
         });
 
+        // 3 Criteria Limit
         document.querySelectorAll('.criteria-box').forEach(cb => {
             cb.addEventListener('change', () => {
                 if (document.querySelectorAll('.criteria-box:checked').length > 3) cb.checked = false;
@@ -527,8 +538,8 @@
                 b.position.add(b.velocity);
                 if(Math.abs(b.position.x) > 20) b.velocity.x *= -1;
                 if(Math.abs(b.position.y) > 20) b.velocity.y *= -1;
-                b.position.x += (mX * 0.6 - b.position.x) * 0.02;
-                b.position.y += (-mY * 0.6 - b.position.y) * 0.02;
+                b.position.x += (mX * 0.7 - b.position.x) * 0.02;
+                b.position.y += (-mY * 0.7 - b.position.y) * 0.02;
             });
             renderer.render(scene, camera);
         }
