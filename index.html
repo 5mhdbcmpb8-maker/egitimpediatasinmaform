@@ -198,7 +198,7 @@
                     <section class="space-y-10 pt-10 border-t border-slate-100">
                         <div class="space-y-4">
                             <h3 class="text-xl sm:text-3xl font-extrabold text-slate-900 leading-snug">1) Okul değişikliği gündeminiz</h3>
-                            <p class="description-text">Taşınma planınız olduğunu biliyoruz. Okul değişikliği gündeminizde taşınma birincil neden mi? Taşınmanın dışında etkileyen başka faktörler var mı?</p>
+                            <p class="description-text">Ankara'dan İstanbul'a taşınma planınız olduğunu biliyoruz. Okul değişikliği gündeminizde taşınma birincil neden mi? Taşınmanın dışında etkileyen başka faktörler var mı?</p>
                         </div>
                         <div class="grid grid-cols-1 gap-3">
                             <label class="flex items-center p-5 sm:p-7 bg-slate-50/40 hover:bg-white border border-transparent hover:border-orange-200 rounded-[2.5rem] transition-all group cursor-pointer">
@@ -223,7 +223,7 @@
                             </label>
                             <div class="p-5 sm:p-7 bg-white rounded-[2.5rem] border border-dashed border-slate-200 flex items-center">
                                 <span class="text-[10px] font-black text-slate-300 uppercase tracking-widest mr-4">Diğer</span>
-                                <input type="text" name="soru_1_diger" placeholder="Lütfen detaylandırın..." class="flex-1 bg-transparent outline-none text-sm font-bold">
+                                <input type="text" name="soru_1_diger" placeholder="Lütfen detaylandırın..." class="flex-1 bg-transparent outline-none text-sm font-bold border-b border-transparent focus:border-orange-400 transition-colors">
                             </div>
                         </div>
                         <div class="space-y-2">
@@ -237,11 +237,11 @@
                         <h3 class="text-xl sm:text-3xl font-extrabold text-slate-900">1A) Taşınma Detayları</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                             <div>
-                                <label class="uppercase tracking-widest text-orange-600 font-black">Taşınma Tarihi (tahmini)</label>
+                                <label class="uppercase tracking-widest text-orange-600 mb-2 font-black">Taşınma Tarihi (tahmini)</label>
                                 <input type="text" name="tasinma_tarihi" class="input-premium w-full px-7 py-5 rounded-3xl outline-none font-bold text-sm">
                             </div>
                             <div>
-                                <label class="uppercase tracking-widest text-orange-600 font-black">Planlanan İlçe / Semt</label>
+                                <label class="uppercase tracking-widest text-orange-600 mb-2 font-black">Planlanan İlçe / Semt</label>
                                 <input type="text" name="planlanan_semt" class="input-premium w-full px-7 py-5 rounded-3xl outline-none font-bold text-sm">
                             </div>
                         </div>
@@ -368,16 +368,16 @@
                 // HubSpot Tracking Cookie (hutk)
                 const hutk = document.cookie.split("; ").find(r => r.startsWith("hubspotutk="))?.split("=")[1];
 
-                // Name Splitting for standard HubSpot fields
+                // Name Splitting
                 const fullName = fd.get('veli_ad') || "";
                 const nameParts = fullName.trim().split(/\s+/);
                 const firstName = nameParts[0] || "";
                 const lastName = nameParts.length > 1 ? nameParts.slice(1).join(" ") : "";
 
-                // Group choices with "Diğer" fields
-                const soru1 = Array.from(fd.getAll('soru_1_choices')).join('; ') + (fd.get('soru_1_diger') ? " | Diğer: " + fd.get('soru_1_diger') : "");
-                const kriterler = Array.from(fd.getAll('kriter_choices')).join('; ') + (fd.get('kriterler_diger') ? " | Diğer: " + fd.get('kriterler_diger') : "");
-                const destek = Array.from(fd.getAll('destek_choices')).join('; ') + (fd.get('destek_diger') ? " | Diğer: " + fd.get('destek_diger') : "");
+                // Choice Construction
+                const soru1Combined = Array.from(fd.getAll('soru_1_choices')).join('; ') + (fd.get('soru_1_diger') ? " | " + fd.get('soru_1_diger') : "");
+                const kriterCombined = Array.from(fd.getAll('kriter_choices')).join('; ') + (fd.get('kriterler_diger') ? " | " + fd.get('kriterler_diger') : "");
+                const destekCombined = Array.from(fd.getAll('destek_choices')).join('; ') + (fd.get('destek_diger') ? " | " + fd.get('destek_diger') : "");
 
                 const finalData = {
                     timestamp: new Date().toLocaleString('tr-TR'),
@@ -388,40 +388,37 @@
                     ogrenci_yas_sinif: fd.get('ogrenci_yas_sinif') || "",
                     mevcut_okul: fd.get('mevcut_okul') || "",
                     adres: fd.get('adres') || "",
-                    soru_1: soru1,
+                    soru_1: soru1Combined,
                     soru_1_aciklama: fd.get('soru_1_aciklama') || "",
                     tasinma_tarihi: fd.get('tasinma_tarihi') || "",
                     planlanan_semt: fd.get('planlanan_semt') || "",
                     ulasim_siniri: fd.get('ulasim_siniri') || "",
-                    kriterler: kriterler,
+                    kriterler: kriterCombined,
+                    lojistik_notu: fd.get('lojistik_notu') || "",
                     atilan_adimlar: fd.get('atilan_adimlar') || "",
-                    destek: destek,
+                    destek: destekCombined,
                     ek_bilgiler: fd.get('ek_bilgiler') || ""
                 };
 
-                // 1. Google Sheets Submission (Fire and forget in background)
-                fetch(G_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(finalData) }).catch(() => {});
-
-                // 2. HubSpot Integration Submission (Wait for response)
+                // 1. HubSpot Submission (Wait for response)
                 const hubPayload = {
                     fields: [
                         { name: "email", value: finalData.eposta },
                         { name: "phone", value: finalData.telefon },
                         { name: "firstname", value: firstName },
                         { name: "lastname", value: lastName },
-                        { name: "veli_ad", value: finalData.veli_ad },
                         { name: "address", value: finalData.adres },
-                        { name: "ogrenci_ad_soyad", value: finalData.ogrenci_ad },
-                        { name: "ogrenci_yas_sinif", value: finalData.ogrenci_yas_sinif },
-                        { name: "mevcut_okul", value: finalData.mevcut_okul },
-                        { name: "okul_degisiklik_gundemi", value: finalData.soru_1 },
-                        { name: "gundem_aciklama", value: finalData.soru_1_aciklama },
+                        { name: "ogrenci_adi_soyadi", value: finalData.ogrenci_ad },
+                        { name: "ogrenci_yasi_sinifi", value: finalData.ogrenci_yas_sinif },
+                        { name: "mevcut_okulu", value: finalData.mevcut_okul },
+                        { name: "okul_degisikligi_gundemi", value: finalData.soru_1 },
+                        { name: "soru_1_kisa_aciklama", value: finalData.soru_1_aciklama },
                         { name: "tasinma_tarihi", value: finalData.tasinma_tarihi },
-                        { name: "planlanan_semt", value: finalData.planlanan_semt },
-                        { name: "ulasim_siniri", value: finalData.ulasim_siniri },
+                        { name: "planlanan_ilce_semt", value: finalData.planlanan_semt },
+                        { name: "ulasim_ust_sinir", value: finalData.ulasim_siniri },
                         { name: "olmazsa_olmaz_kriterler", value: finalData.kriterler },
-                        { name: "atilan_adimlar", value: finalData.atilan_adimlar },
-                        { name: "alinan_destek", value: finalData.destek },
+                        { name: "su_ana_kadar_atilan_adimlar", value: finalData.atilan_adimlar },
+                        { name: "bizden_istenen_destek", value: finalData.destek },
                         { name: "ek_bilgiler", value: finalData.ek_bilgiler }
                     ],
                     context: {
@@ -444,27 +441,42 @@
                     body: JSON.stringify(hubPayload)
                 });
 
-                if (hsRes.ok) {
-                    submitBtn.innerHTML = `✓ BAŞARILI - YÖNLENDİRİLİYORSUNUZ...`;
-                    setTimeout(() => { window.location.href = REDIRECT_URL; }, 800);
-                } else {
-                    const errBody = await hsRes.text();
-                    console.error("HubSpot Error:", errBody);
-                    alert("Kayıt oluşturulamadı. Lütfen alanları kontrol edip tekrar deneyin.");
+                if (!hsRes.ok) {
+                    const errTxt = await hsRes.text();
+                    console.error("HubSpot Error:", errTxt);
+                    alert("Kayıt HubSpot'a iletilemedi. Lütfen alanları kontrol edin.");
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = "BAŞVURUYU TAMAMLA";
+                    return false;
                 }
 
+                // 2. Google Sheets Submission (Silent Post)
+                fetch(G_SCRIPT_URL, { 
+                    method: 'POST', 
+                    mode: 'no-cors', 
+                    body: JSON.stringify(finalData) 
+                }).catch(e => console.warn("Sheets Error:", e));
+
+                // 3. Final Success Redirect
+                submitBtn.innerHTML = `✓ BAŞARILI - YÖNLENDİRİLİYORSUNUZ...`;
+                setTimeout(() => {
+                    if (window.top !== window.self) {
+                        window.top.location.href = REDIRECT_URL;
+                    } else {
+                        window.location.href = REDIRECT_URL;
+                    }
+                }, 800);
+
             } catch (err) {
-                console.error("Critical error:", err);
+                console.error("Critical submission error:", err);
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = "BAŞVURUYU TAMAMLA";
-                alert("Bağlantı hatası oluştu. Lütfen tekrar deneyiniz.");
+                alert("Bağlantı hatası oluştu.");
             }
             return false;
         };
 
-        // Radio UI Interactions
+        // UI Helpers
         document.querySelectorAll('input[type="radio"]').forEach(radio => {
             radio.addEventListener('change', () => {
                 const group = radio.name;
@@ -479,7 +491,6 @@
             });
         });
 
-        // 3 Criteria Limit
         document.querySelectorAll('.criteria-box').forEach(cb => {
             cb.addEventListener('change', () => {
                 if (document.querySelectorAll('.criteria-box:checked').length > 3) cb.checked = false;
@@ -488,7 +499,7 @@
     </script>
 
     <script>
-        // Three.js Background
+        // Visuals
         const canvas = document.getElementById('bg-canvas');
         const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -500,11 +511,11 @@
         const colors = [0xf97316, 0xfb923c, 0xfdba74, 0xffedd5, 0xea580c];
         for(let i=0; i<6; i++) {
             const size = (Math.random() * 3) + 2.5;
-            const geometry = new THREE.SphereGeometry(size, 64, 64);
-            const material = new THREE.MeshPhongMaterial({ color: colors[i % colors.length], transparent: true, opacity: 0.3, shininess: 140 });
-            const blob = new THREE.Mesh(geometry, material);
+            const geom = new THREE.SphereGeometry(size, 64, 64);
+            const material = new THREE.MeshPhongMaterial({ color: colors[i % colors.length], transparent: true, opacity: 0.35, shininess: 140 });
+            const blob = new THREE.Mesh(geom, material);
             blob.position.set((Math.random()-0.5)*25, (Math.random()-0.5)*25, (Math.random()-0.5)*8);
-            blob.velocity = new THREE.Vector3((Math.random()-0.5)*0.012, (Math.random()-0.5)*0.012, 0);
+            blob.velocity = new THREE.Vector3((Math.random()-0.5)*0.015, (Math.random()-0.5)*0.015, 0);
             scene.add(blob); blobs.push(blob);
         }
         scene.add(new THREE.AmbientLight(0xffffff, 1.5));
