@@ -262,7 +262,7 @@
                                 <label class="flex items-center p-5 bg-white/40 rounded-2xl border border-slate-100 cursor-pointer hover:bg-orange-50 transition-all"><input type="checkbox" name="kriter_choices" value="Eğitim dili" class="criteria-box mr-3"> <span class="text-[9px] font-black uppercase">Eğitim Dili</span></label>
                                 <label class="flex items-center p-5 bg-white/40 rounded-2xl border border-slate-100 cursor-pointer hover:bg-orange-50 transition-all"><input type="checkbox" name="kriter_choices" value="Akademik seviye" class="criteria-box mr-3"> <span class="text-[9px] font-black uppercase">Akademik Seviye</span></label>
                                 <label class="flex items-center p-5 bg-white/40 rounded-2xl border border-slate-100 cursor-pointer hover:bg-orange-50 transition-all"><input type="checkbox" name="kriter_choices" value="Rehberlik/psikolojik destek" class="criteria-box mr-3"> <span class="text-[9px] font-black uppercase">Rehberlik / Psikolojik</span></label>
-                                <label class="flex items-center p-5 bg-white/40 rounded-2xl border border-slate-100 cursor-pointer hover:bg-orange-50 transition-all"><input type="checkbox" name="kriter_choices" value="Okul kültürü-disiplin" class="criteria-box mr-3"> <span class="text-[9px] font-black uppercase">Disiplin</span></label>
+                                <label class="flex items-center p-5 bg-white/40 rounded-2xl border border-slate-100 cursor-pointer hover:bg-orange-50 transition-all"><input type="checkbox" name="kriter_choices" value="Okul kültürü-disiplin" class="criteria-box mr-3"> <span class="text-[9px] font-black uppercase">Kültür / Disiplin</span></label>
                                 <label class="flex items-center p-5 bg-white/40 rounded-2xl border border-slate-100 cursor-pointer hover:bg-orange-50 transition-all"><input type="checkbox" name="kriter_choices" value="Yabancı program" class="criteria-box mr-3"> <span class="text-[9px] font-black uppercase">Yabancı Program</span></label>
                                 <label class="flex items-center p-5 bg-white/40 rounded-2xl border border-slate-100 cursor-pointer hover:bg-orange-50 transition-all"><input type="checkbox" name="kriter_choices" value="Spor/sanat imkanları" class="criteria-box mr-3"> <span class="text-[9px] font-black uppercase">Spor / Sanat</span></label>
                                 <label class="flex items-center p-5 bg-white/40 rounded-2xl border border-slate-100 cursor-pointer hover:bg-orange-50 transition-all"><input type="checkbox" name="kriter_choices" value="Bütçe" class="criteria-box mr-3"> <span class="text-[9px] font-black uppercase">Bütçe</span></label>
@@ -361,12 +361,13 @@
                 const form = document.getElementById('master-form');
                 const fd = new FormData(form);
                 
-                // HubSpot Tracking Cookie (hutk) safely accessed inside try block
-                let hutk;
+                // Safe HubSpot Tracking Cookie (hutk)
+                let hutk = null;
                 try {
-                    hutk = document.cookie.split("; ").find(r => r.startsWith("hubspotutk="))?.split("=")[1];
-                } catch (cookieError) {
-                    console.warn("Security limitation: Cookie access blocked in this environment.");
+                    const cookieMatch = document.cookie.split("; ").find(r => r.startsWith("hubspotutk="));
+                    if (cookieMatch) hutk = cookieMatch.split("=")[1];
+                } catch (sErr) {
+                    console.warn("Cookie access blocked:", sErr.message);
                 }
 
                 // Name Splitting for standard HubSpot fields
@@ -421,13 +422,17 @@
                         { name: "mevcut_okulu", value: finalData.mevcut_okul },
                         { name: "okul_degisikligi_gundemi", value: finalData.soru_1 },
                         { name: "soru_1_kisa_aciklama", value: finalData.soru_1_aciklama },
-                        { name: "tasinma_tarihi", value: finalData.tasinma_tarihi },
+                        { name: "tasnma_tarihi_tahmini", value: finalData.tasinma_tarihi },
                         { name: "planlanan_ilce_semt", value: finalData.planlanan_semt },
-                        { name: "ulasim_ust_sinir", value: finalData.ulasim_siniri },
+                        { name: "okula_ulasm_ust_snr", value: finalData.ulasim_siniri },
                         { name: "olmazsa_olmaz_kriterler", value: finalData.kriterler },
-                        { name: "su_ana_kadar_atilan_adimlar", value: finalData.atilan_adimlar },
+                        { name: "su_ana_kadar_atlan_admlar", value: finalData.atilan_adimlar },
                         { name: "bizden_istenen_destek", value: finalData.destek },
-                        { name: "ek_bilgiler", value: finalData.ek_bilgiler }
+                        { name: "ek_bilgiler", value: finalData.ek_bilgiler },
+                        // New requested contact properties
+                        { name: "lead_kaynag", value: "Vercel Ön Görüşme Formu (Taşınma)" },
+                        { name: "aday_niteligi_aday_durumu", value: "Değerlendirme Aşamasında" },
+                        { name: "mentorluk_durumu", value: "Randevu bekleniyor" }
                     ],
                     context: {
                         pageUri: window.location.href,
@@ -437,7 +442,7 @@
                     legalConsentOptions: {
                         consent: {
                             consentToProcess: true,
-                            text: "I agree to allow processing.",
+                            text: "Verilerimin işlenmesine izin veriyorum.",
                             communications: [
                                 { 
                                     value: false, 
@@ -458,21 +463,20 @@
                 if (hsRes.ok) {
                     submitBtn.innerHTML = `✓ BAŞARILI - YÖNLENDİRİLİYORSUNUZ...`;
                     setTimeout(() => { 
-                        // Cross-origin safe redirection
                         try {
                             if (window.top !== window.self) {
                                 window.top.location.href = REDIRECT_URL;
                             } else {
                                 window.location.href = REDIRECT_URL;
                             }
-                        } catch (redirectError) {
+                        } catch (rErr) {
                             window.location.href = REDIRECT_URL;
                         }
                     }, 800);
                 } else {
                     const errBody = await hsRes.text();
                     console.error("HubSpot Submit Failed:", hsRes.status, errBody);
-                    alert("Kayıt HubSpot tarafında oluşturulamadı. Lütfen zorunlu alanları kontrol edip tekrar deneyin.");
+                    alert("Zorunlu alanlarda bir hata var. Lütfen formu kontrol edip tekrar deneyin.");
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = "BAŞVURUYU TAMAMLA";
                 }
@@ -481,7 +485,7 @@
                 console.error("Critical submission error:", err);
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = "BAŞVURUYU TAMAMLA";
-                alert("Bağlantı hatası oluştu. Lütfen tekrar deneyiniz.");
+                alert("İşlem sırasında bir hata oluştu. Lütfen bağlantınızı kontrol ediniz.");
             }
             return false;
         };
